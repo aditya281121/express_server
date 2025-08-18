@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express(); //create an instance of express
 
-
+app.get("/user/:userId/:name/:password",(req,res) => {
+    console.log(req.params);
+    res.send({firstName : "Aditya", lastName : "Chauhan"});
+})
 
 app.use("/user", (req,res) => {
     res.send("HAHAHAHAHA")
