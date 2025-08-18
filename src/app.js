@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express(); //create an instance of express
 
+
+
 app.use("/user", (req,res) => {
     res.send("HAHAHAHAHA")
 })
 
 //This will only handle GET call to /user
 app.get("/user", (req, res) => {
+    //console.log(req.query)
     res.send({firstName : "Aditya", lastName : "Chauhan"})
 })
 
