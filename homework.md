@@ -23,3 +23,14 @@
 -Use of regex in routes /a/, /.*fly$/
 -Reading the query params in the routes
 -Reading the dynamic routes
+
+-Multiple Route Handlers (nested) - Play with the code do above and below 
+-next()
+-next function and errors along with res.send()
+-app.use("/route" , rH, [rH2,rH3], rH4, rH5);
+- What is middleware
+- How expressJS basically handles requests behind the scenes
+
+
+
+

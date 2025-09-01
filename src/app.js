@@ -1,7 +1,46 @@
 const express = require('express');
 const app = express(); //create an instance of express
 
-app.get("/user/:userId/:name/:password",(req,res) => {
+/* Middlewares & Error Handlers */
+
+//We can have multiple route handers for a single route
+//app.use("/route", rH, [rH1,rH2], rH3 , rH5)
+app.use("/user", [(req, res, next) => {
+    //Route Handler
+   // res.send("Route Handler1")
+   console.log("Handeling the route user 1!!")
+   //res.send("1st Response!!")
+   next()
+   
+} ,
+ (req , res,next) => {
+    //route handler 2
+   console.log("Handeling the route user 2!!")
+   //res.send("2nd Response!!")
+   next()
+}],  
+   (req , res, next) => {
+    //route handler 3
+   console.log("Handeling the route user 3!!")
+   //res.send("3rd Response!!")
+   next()
+},  
+    (req , res, next) => {
+    //route handler 4
+   console.log("Handeling the route user 4!!")
+   //res.send("4th Response!!")
+   //next()
+} );
+//Error - Cannot set headers after they are sent to the client - as tcp connection is closed
+
+
+
+
+
+
+
+
+/* app.get("/user/:userId/:name/:password",(req,res) => {
     console.log(req.params);
     res.send({firstName : "Aditya", lastName : "Chauhan"});
 })
@@ -40,7 +79,7 @@ app.use("/test",(req,res) => { //this function is called request handler
 
 app.use("/",(req,res) => { //this function is called request handler
     res.send("Hello /!"); 
-})
+}) */
 
 
 app.listen(7777 , () => {
