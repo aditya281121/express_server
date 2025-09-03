@@ -1,7 +1,57 @@
 const express = require('express');
 const app = express(); //create an instance of express
 
+
+
 /* Middlewares & Error Handlers */
+
+const {adminAuth, userAuth} = require("./middlewares/auth")
+
+//Handle Auth Middleware for all GET,POST , .... requests
+app.use("/admin",adminAuth)
+
+app.get("/user/login", (req,res) => {
+    res.send("User logged in Successfully")
+})
+
+app.get("/user/data", userAuth, (req,res) => {
+    res.send("User Data Sent")
+})
+
+app.get("/admin/getAllData", (req , res) => {
+    
+        res.send("All data send")
+    
+})
+
+
+app.get("/admin/deleteUser", (req, res) => {
+    
+          res.send("Deleted a User")
+    
+})
+
+
+//GET /users => middleware chain => request handler
+// It checks all the app.xxx("matching route") functions
+
+app.use("/", (req, res, next) => { //middleware function
+    //res.send("Handling / route")
+    next()    
+})
+
+app.get("/user", (req,res,next) => { //middleware function
+    console.log("Handling /user route")
+    next()
+},
+  (req,res,next) => { //request handler
+    res.send("1st Route Handler")
+},
+   (req,res,next) => {
+    res.send("2nd Route Handler") //request handler
+}
+)
+
 
 //We can have multiple route handers for a single route
 //app.use("/route", rH, [rH1,rH2], rH3 , rH5)
@@ -35,12 +85,8 @@ app.use("/user", [(req, res, next) => {
 
 
 
-
-
-
-
-
-/* app.get("/user/:userId/:name/:password",(req,res) => {
+/*  Routing and request handlers 
+app.get("/user/:userId/:name/:password",(req,res) => {
     console.log(req.params);
     res.send({firstName : "Aditya", lastName : "Chauhan"});
 })
