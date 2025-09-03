@@ -5,6 +5,40 @@ const app = express(); //create an instance of express
 
 /* Middlewares & Error Handlers */
 
+//To handle gracefully any error in the app
+app.use("/", (err, req, res, next) => { //This is also a middleware function
+
+    if(err) {
+        //Log your error 
+        res.status(500).send("Something went wrong!!")
+    }
+
+}
+)
+
+app.get("/getUserData",(req, res) => {
+    try {
+    //Logic of the DB call and get User data
+    
+    throw new Error("nksdnjk")
+    res.send("User Data")
+    } catch(err) {
+        res.status(500).send("Some error contact support team")
+    }
+
+})
+
+//To handle gracefully any error in the app
+app.use("/", (err, req, res, next) => { //This is also a middleware function
+
+    if(err) {
+        //Log your error 
+        res.status(500).send("Something went wrong!!")
+    }
+
+}
+)
+
 const {adminAuth, userAuth} = require("./middlewares/auth")
 
 //Handle Auth Middleware for all GET,POST , .... requests
