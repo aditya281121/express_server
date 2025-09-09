@@ -1,9 +1,44 @@
 const express = require('express');
 const app = express(); //create an instance of express
+const connectDB = require("./config/database");
+const User = require("./models/user");
+
+//Lets start creating api 
+app.post("/signup", async (req,res) => {
+    //Creating a new instance of the User model
+    const user = new User({
+        firstName: "Virat",
+        lastName: "Kohli",
+        emailId: "kohli@gmail.com",
+        password: "kohli@1234",
+    })
+
+    try {
+    await user.save()
+    res.send("User added successfully!!")
+    } catch(err) {
+        res.status(500).send("Error saving the user:" + err.message)
+    }
+    
+});
+
+
+connectDB().then(() => {
+    console.log("Database connection established....");
+    app.listen(7777 , () => {
+    console.log("Server is successfully listening on port 7777....");
+}); //listen incoming requests on port 3000
+
+})
+.catch((err) => {
+    console.log("Database cannot be connected!!")
+});
 
 
 
-/* Middlewares & Error Handlers */
+
+
+/* Middlewares & Error Handlers 
 
 //To handle gracefully any error in the app
 app.use("/", (err, req, res, next) => { //This is also a middleware function
@@ -116,7 +151,7 @@ app.use("/user", [(req, res, next) => {
    //next()
 } );
 //Error - Cannot set headers after they are sent to the client - as tcp connection is closed
-
+*/
 
 
 /*  Routing and request handlers 
@@ -162,6 +197,3 @@ app.use("/",(req,res) => { //this function is called request handler
 }) */
 
 
-app.listen(7777 , () => {
-    console.log("Server is successfully listening on port 7777....");
-}); //listen incoming requests on port 3000
