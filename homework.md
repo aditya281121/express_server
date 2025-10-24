@@ -49,6 +49,7 @@
 - Make your signup API dynamic to receive data from the end user.
 - User.findOne with duplicate email ids, which object returned.
 - API - Get user by email.
+
 - API - Feed API - Get /feed - get all the users from the database.
 - API - Get user by ID.
 - Create a delete user API
@@ -64,3 +65,5 @@
 - Create a custom validate function for gender
 - Improve the DB Schema - Put all appropiate validations on each field in Schema
 - Add timestamos to the userSchema.
+- Add API level validation on PATCH request and SIGNUP post api.
+- Data Sanitization - Add API level validation for each field.
